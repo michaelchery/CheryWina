@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Wedding of Chery & Wina</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-gold: #F1C193;
+            --bg-dark: #0A0A0A;
+            --card-dark: rgba(20, 20, 20, 0.65);
+            --text-light: #FFFFFF;
+            --text-muted: #CCCCCC;
+            --font-cinzel: 'Cinzel', serif;
+            --font-cormorant: 'Cormorant Garamond', serif;
+            --font-montserrat: 'Montserrat', sans-serif;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(241, 193, 147, 0.25);
+            --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            font-family: var(--font-montserrat);
+            overflow-x: hidden;
+        }
+
+        /* Glassmorphism Effect */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            box-shadow: var(--glass-shadow);
+        }
+
+        .glass-img-wrapper {
+            position: relative;
+            border-radius: 50%;
+            padding: 8px;
+            background: rgba(241, 193, 147, 0.15);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--primary-gold);
+            box-shadow: 0 0 20px rgba(241, 193, 147, 0.2);
+        }
+
+        /* Floating Audio Control */
+        .audio-btn {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 50px;
+            height: 50px;
+            background: rgba(241, 193, 147, 0.15);
+            border: 1px solid var(--primary-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-gold);
+            cursor: pointer;
+            z-index: 999;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(0,0,0,0.5);
+        }
+
+        .audio-btn.playing {
+            animation: rotateDisk 6s linear infinite;
+        }
+
+        @keyframes rotateDisk {
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Layout Structure */
+        .app-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Left Fixed Sidebar Layout */
+        .sidebar-hero {
+            width: 45%;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.75)), url('https://files.catbox.moe/m8vqvu.JPG') center/cover no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 60px;
+            border-right: 1px solid var(--glass-border);
+        }
+
+        .sidebar-content h4 {
+            font-family: var(--font-montserrat);
+            letter-spacing: 4px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .sidebar-content h1 {
+            font-family: var(--font-cinzel);
+            font-size: 3.2rem;
+            color: var(--primary-gold);
+            margin: 15px 0;
+            font-weight: 600;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+
+        /* Right Content Layout */
+        .main-wrapper {
+            width: 55%;
+            margin-left: 45%;
+            background-color: var(--bg-dark);
+        }
+
+        section {
+            padding: 90px 50px;
+            border-bottom: 1px solid rgba(241, 193, 147, 0.1);
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title {
+            font-family: var(--font-cormorant);
+            font-size: 2.8rem;
+            color: var(--primary-gold);
+            margin-bottom: 8px;
+            font-style: italic;
+        }
+
+        .subtitle {
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 45px;
+        }
+
+        .cinzel-font {
+            font-family: var(--font-cinzel) !important;
+            color: var(--primary-gold);
+        }
+
+        /* Cover Front / Splash Screen Modal */
+        #cover-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 10000;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)), url('https://files.catbox.moe/3od4fc.JPG') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+
+        #cover-modal.hide {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .cover-card {
+            padding: 50px 40px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .btn-open {
+            margin-top: 30px;
+            padding: 14px 36px;
+            background: transparent;
+            border: 1px solid var(--primary-gold);
+            color: var(--primary-gold);
+            font-family: var(--font-montserrat);
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .btn-open:hover {
+            background: var(--primary-gold);
+            color: var(--bg-dark);
+            box-shadow: 0 0 20px rgba(241, 193, 147, 0.4);
+        }
+
+        /* Hero Main Section */
+        .hero-section {
+            min-height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.85)), url('https://files.catbox.moe/4d9b58.jpg') center/cover no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-section h1 {
+            font-size: 3.8rem;
+            margin: 20px 0;
+        }
+
+        .hero-date-tag {
+            font-size: 1.1rem;
+            letter-spacing: 4px;
+            border-top: 1px solid var(--primary-gold);
+            border-bottom: 1px solid var(--primary-gold);
+            padding: 10px 25px;
+            margin-top: 25px;
+        }
+
+        /* Slideshow / Carousel Gallery */
+        .slideshow-container {
+            position: relative;
+            max-width: 100%;
+            height: 400px;
+            border-radius: 16px;
+            overflow: hidden;
+            margin: 30px 0;
+            border: 1px solid var(--glass-border);
+        }
+
+        .slide-fade {
+            display: none;
+            width: 100%;
+            height: 100%;
+            animation: fadeEffect 1.5s ease-in-out;
+        }
+
+        .slide-fade img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @keyframes fadeEffect {
+            from { opacity: 0.4; transform: scale(1.02); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* Groom & Bride Section */
+        .couples-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .profile-card {
+            padding: 35px;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            text-align: left;
+        }
+
+        .profile-img {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .profile-desc h3 {
+            font-size: 2rem;
+            margin-bottom: 5px;
+        }
+
+        /* Countdown Timer */
+        .timer-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 35px 0;
+        }
+
+        .timer-box {
+            width: 85px;
+            padding: 18px 0;
+            text-align: center;
+        }
+
+        .timer-box .val {
+            font-size: 2rem;
+            font-family: var(--font-cinzel);
+            color: var(--primary-gold);
+            font-weight: 700;
+        }
+
+        .timer-box .lbl {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-top: 6px;
+        }
+
+        /* Event & Map Card */
+        .event-card {
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .event-header-img {
+            width: 100%;
+            height: 260px;
+            object-fit: cover;
+        }
+
+        .event-body {
+            padding: 35px;
+        }
+
+        .map-frame {
+            width: 100%;
+            height: 320px;
+            margin-top: 25px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+        }
+
+        /* Wedding Gift Section */
+        .gift-box {
+            padding: 40px;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        .bca-logo {
+            width: 110px;
+            margin-bottom: 15px;
+            filter: brightness(0) invert(1);
+        }
+
+        .account-number {
+            font-family: var(--font-cinzel);
+            font-size: 1.6rem;
+            letter-spacing: 3px;
+            color: var(--primary-gold);
+            margin: 15px 0 5px 0;
+        }
+
+        .btn-copy {
+            background: transparent;
+            border: 1px solid var(--primary-gold);
+            color: var(--primary-gold);
+            padding: 10px 24px;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s;
+        }
+
+        .btn-copy:hover {
+            background: var(--primary-gold);
+            color: var(--bg-dark);
+        }
+
+        /* Notification Toast */
+        #toast-msg {
+            visibility: hidden;
+            min-width: 260px;
+            background-color: var(--primary-gold);
+            color: var(--bg-dark);
+            text-align: center;
+            border-radius: 30px;
+            padding: 12px 24px;
+            position: fixed;
+            z-index: 10001;
+            left: 50%;
+            bottom: 30px;
+            transform: translateX(-50%);
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        #toast-msg.show {
+            visibility: visible;
+            animation: fadeInOut 2.8s;
+        }
+
+        @keyframes fadeInOut {
+            0% { bottom: 0; opacity: 0; }
+            20% { bottom: 30px; opacity: 1; }
+            80% { bottom: 30px; opacity: 1; }
+            100% { bottom: 0; opacity: 0; }
+        }
+
+        /* Mobile View Responsive Adjustment */
+        @media (max-width: 992px) {
+            .sidebar-hero { display: none; }
+            .main-wrapper { width: 100%; margin-left: 0; }
+            section { padding: 65px 20px; }
+            .profile-card { flex-direction: column; text-align: center; }
+            .hero-section h1 { font-size: 2.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Audio Player Background -->
+    <audio id="bgAudio" loop preload="auto">
+        <source src="https://files.catbox.moe/vtd0ht.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="audio-btn" id="audioToggle" onclick="toggleAudio()">
+        <i class="fas fa-music"></i>
+    </div>
+
+    <!-- Cover Front Overlay Modal -->
+    <div id="cover-modal">
+        <div class="cover-card glass-card">
+            <p class="subtitle" style="margin-bottom: 15px;">THE WEDDING OF</p>
+            <h1 class="cinzel-font" style="font-size: 2.8rem; margin-bottom: 10px;">Chery & Wina</h1>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">18 . 10 . 2026</p>
+            <button class="btn-open" onclick="openInvitation()">Buka Undangan</button>
+        </div>
+    </div>
+
+    <!-- Main App Container -->
+    <div class="app-container">
+        
+        <!-- Fixed Desktop Left Sidebar Hero -->
+        <div class="sidebar-hero">
+            <div class="sidebar-content">
+                <h4>The Wedding of</h4>
+                <h1 class="cinzel-font">Chery & Wina</h1>
+                <p style="color: var(--text-muted); font-size: 0.85rem; letter-spacing: 3px;">SUNDAY, 18 OCTOBER 2026</p>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="main-wrapper">
+            
+            <!-- Hero Main -->
+            <section class="hero-section">
+                <p class="subtitle">WE ARE GROOMING FOR OUR WEDDING</p>
+                <h1 class="cinzel-font">Chery & Wina</h1>
+                <p style="font-family: var(--font-cormorant); font-style: italic; font-size: 1.3rem;">#CheryWinaWedding</p>
+                <div class="hero-date-tag">18 . 10 . 2026</div>
+            </section>
+
+            <!-- Profile Groom & Bride -->
+            <section>
+                <h2 class="section-title">Groom & Bride</h2>
+                <p class="subtitle">PASANGAN MEMPELAI</p>
+                
+                <div class="couples-wrapper">
+                    <!-- Groom -->
+                    <div class="profile-card glass-card">
+                        <div class="glass-img-wrapper">
+                            <img src="https://files.catbox.moe/4q7123.jpg" alt="Michael Chery" class="profile-img">
+                        </div>
+                        <div class="profile-desc">
+                            <h3 class="cinzel-font">Michael Chery</h3>
+                            <p style="color: var(--primary-gold); font-size: 0.9rem; margin-bottom: 8px;">( Chery )</p>
+                            <p style="color: var(--text-muted); font-size: 0.85rem;">Mempelai Pria</p>
+                        </div>
+                    </div>
+
+                    <!-- Bride -->
+                    <div class="profile-card glass-card">
+                        <div class="glass-img-wrapper">
+                            <img src="https://files.catbox.moe/d620en.jpg" alt="Wina Sigar" class="profile-img">
+                        </div>
+                        <div class="profile-desc">
+                            <h3 class="cinzel-font">Wina Sigar</h3>
+                            <p style="color: var(--primary-gold); font-size: 0.9rem; margin-bottom: 8px;">( Wina )</p>
+                            <p style="color: var(--text-muted); font-size: 0.85rem;">Mempelai Wanita</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slideshow / Photo Gallery Animated Slider -->
+            <section>
+                <h2 class="section-title">Our Gallery</h2>
+                <p class="subtitle">MOMEN BAHAGIA</p>
+
+                <div class="slideshow-container">
+                    <div class="slide-fade">
+                        <img src="https://files.catbox.moe/3od4fc.JPG" alt="Gallery 1">
+                    </div>
+                    <div class="slide-fade">
+                        <img src="https://files.catbox.moe/rpragk.jpg" alt="Gallery 2">
+                    </div>
+                    <div class="slide-fade">
+                        <img src="https://files.catbox.moe/m8vqvu.JPG" alt="Gallery 3">
+                    </div>
+                    <div class="slide-fade">
+                        <img src="https://files.catbox.moe/014mdg.jpg" alt="Gallery 4">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Countdown Timer -->
+            <section>
+                <h2 class="section-title">Save The Date</h2>
+                <p class="subtitle">HITUNG MUNDUR ACARA</p>
+                
+                <div class="timer-container">
+                    <div class="timer-box glass-card">
+                        <div class="val" id="days">00</div>
+                        <div class="lbl">Hari</div>
+                    </div>
+                    <div class="timer-box glass-card">
+                        <div class="val" id="hours">00</div>
+                        <div class="lbl">Jam</div>
+                    </div>
+                    <div class="timer-box glass-card">
+                        <div class="val" id="minutes">00</div>
+                        <div class="lbl">Menit</div>
+                    </div>
+                    <div class="timer-box glass-card">
+                        <div class="val" id="seconds">00</div>
+                        <div class="lbl">Detik</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Event Detail & Map -->
+            <section>
+                <h2 class="section-title">Wedding Event</h2>
+                <p class="subtitle">WAKTU & LOKASI ACARA</p>
+
+                <div class="event-card glass-card">
+                    <img src="https://files.catbox.moe/014mdg.jpg" alt="Ceremony Venue" class="event-header-img">
+                    <div class="event-body">
+                        <h3 class="cinzel-font" style="font-size: 1.8rem; margin-bottom: 12px;">Pemberkahan & Resepsi</h3>
+                        <p style="color: var(--primary-gold); margin-bottom: 10px;"><i class="far fa-calendar-alt"></i> Minggu, 18 Oktober 2026</p>
+                        <p style="margin-bottom: 20px;"><i class="far fa-clock"></i> Pukul 13.00 WIB - Selesai</p>
+                        <hr style="border-color: rgba(241, 193, 147, 0.2); margin: 20px 0;">
+                        <p style="font-weight: 600; font-size: 1.1rem; color: var(--text-light);">Vihara Buddhayana Surabaya</p>
+                        <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 6px;">Jalan Putat, Surabaya, Jawa Timur</p>
+                        
+                        <!-- Map Frame -->
+                        <div class="map-frame">
+                            <iframe 
+                                src="https://maps.google.com/maps?q=Vihara%20Buddhayana%20Surabaya%20Jalan%20Putat&t=&z=15&ie=UTF8&iwloc=&output=embed" 
+                                width="100%" 
+                                height="100%" 
+                                style="border:0;" 
+                                allowfullscreen="" 
+                                loading="lazy">
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Gift Section -->
+            <section>
+                <h2 class="section-title">Wedding Gift</h2>
+                <p class="subtitle">TANDA KASIH</p>
+                <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 30px; line-height: 1.6;">
+                    Tanpa mengurangi rasa hormat, bagi Anda yang ingin memberikan tanda kasih untuk kami, dapat menyalurkan melalui rekening berikut:
+                </p>
+
+                <div class="gift-box glass-card">
+                    <!-- Vector Logo BCA -->
+                    <svg class="bca-logo" viewBox="0 0 300 100" xmlns="http://www.w3.org/2000/svg">
+                        <path fill="#FFFFFF" d="M48.2,30.2 c-1.5-1.5-3.6-2.3-5.7-2.3H15.6v44.2h26.9c2.1,0,4.2-0.8,5.7-2.3c1.5-1.5,2.3-3.6,2.3-5.7V35.9C50.5,33.8,49.7,31.7,48.2,30.2z M37.8,57.1H27.5V42.9h10.3v14.2H37.8z"/>
+                        <text x="65" y="65" fill="#FFFFFF" font-family="Arial, sans-serif" font-weight="bold" font-size="55" letter-spacing="4">BCA</text>
+                    </svg>
+                    
+                    <p style="color: var(--text-muted); font-size: 0.8rem; text-transform: uppercase;">Bank Central Asia (BCA)</p>
+                    <div class="account-number" id="accountNo">3831638557</div>
+                    <p style="font-size: 0.9rem;">a.n Wina Sigar</p>
+
+                    <button class="btn-copy" onclick="copyAccount()">
+                        <i class="far fa-copy"></i> Salin Nomor Rekening
+                    </button>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer style="padding: 40px 20px; text-align: center; border-top: 1px solid rgba(241, 193, 147, 0.1);">
+                <p class="cinzel-font" style="font-size: 1.2rem; margin-bottom: 10px;">Chery & Wina</p>
+                <p style="color: var(--text-muted); font-size: 0.75rem; letter-spacing: 1px;">&copy; 2026 CHERY & WINA. ALL RIGHTS RESERVED.</p>
+            </footer>
+
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-msg">Nomor rekening berhasil disalin!</div>
+
+    <!-- JavaScript Scripts -->
+    <script>
+        // Music Audio Control
+        const audio = document.getElementById("bgAudio");
+        const audioBtn = document.getElementById("audioToggle");
+        let isAudioPlaying = false;
+
+        function toggleAudio() {
+            if (isAudioPlaying) {
+                audio.pause();
+                audioBtn.classList.remove("playing");
+            } else {
+                audio.play();
+                audioBtn.classList.add("playing");
+            }
+            isAudioPlaying = !isAudioPlaying;
+        }
+
+        function openInvitation() {
+            document.getElementById("cover-modal").classList.add("hide");
+            if (!isAudioPlaying) {
+                toggleAudio();
+            }
+        }
+
+        // Slideshow Animation Logic
+        let slideIndex = 0;
+        showSlides();
+
+        function showSlides() {
+            let i;
+            let slides = document.getElementsByClassName("slide-fade");
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";  
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) {slideIndex = 1}    
+            slides[slideIndex-1].style.display = "block";  
+            setTimeout(showSlides, 3500); // Ganti gambar setiap 3.5 detik
+        }
+
+        // Countdown Timer Logic (Target: 18 Oktober 2026 13:00 WIB)
+        const eventTime = new Date("October 18, 2026 13:00:00").getTime();
+
+        const timerInterval = setInterval(function() {
+            const currentTime = new Date().getTime();
+            const difference = eventTime - currentTime;
+
+            if (difference > 0) {
+                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+                document.getElementById("days").innerText = days < 10 ? "0" + days : days;
+                document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
+                document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
+                document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
+            } else {
+                clearInterval(timerInterval);
+            }
+        }, 1000);
+
+        // Copy Account Number
+        function copyAccount() {
+            const textToCopy = document.getElementById("accountNo").innerText;
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                const toast = document.getElementById("toast-msg");
+                toast.classList.add("show");
+                setTimeout(() => { toast.classList.remove("show"); }, 2800);
+            });
+        }
+    </script>
+</body>
+</html>
