@@ -707,43 +707,54 @@
         .events-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 30px;
+            gap: 25px;
             width: 100%;
         }
 
-        @media (min-width: 992px) {
+        @media (min-width: 768px) {
             .events-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: 30px;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 25px;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .events-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 25px;
             }
         }
 
         .event-card {
-            background: rgba(0, 0, 0, 0.25);
+            background: rgba(0, 0, 0, 0.35);
             border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 16px;
-            padding: 30px;
+            padding: 25px;
             backdrop-filter: blur(4px);
             -webkit-backdrop-filter: blur(4px);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         .date-display {
             display: flex;
             align-items: center;
             gap: 15px;
-            margin-top: 20px;
+            margin-top: 15px;
         }
 
         .date-number {
             font-family: var(--font-serif);
-            font-size: clamp(3.5rem, 5vw, 5rem);
+            font-size: clamp(3rem, 4vw, 4.5rem);
             line-height: 1;
             margin: 0;
             padding: 0;
+            color: var(--text-gold);
         }
 
         .date-detail {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             line-height: 1.4;
         }
 
@@ -834,53 +845,25 @@
         .house-rules-note strong { color: #ffffff; }
 
         .location-box {
-            margin-top: 30px;
+            margin-top: 20px;
             font-size: 0.95rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 15px;
         }
 
-        .btn-location {
-            display: inline-block;
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            color: #fff;
-            padding: 12px 30px;
-            border-radius: 25px;
-            text-decoration: none;
-            font-size: 0.9rem;
-            margin-top: 18px;
-            transition: all 0.3s ease;
-        }
-
-        .btn-location:hover { 
-            background: rgba(255, 255, 255, 0.4); 
-            color: #fff;
-        }
-
-        .rsvp-section {
-            min-height: 100vh;
-            min-height: 100dvh;
+        .gift-section {
+            min-height: 80vh;
             display: flex;
             align-items: center;
             padding: 60px 0;
         }
 
-        .interactive-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 50px;
-            align-items: start;
-            width: 100%;
-        }
-
-        @media (min-width: 768px) {
-            .interactive-grid { grid-template-columns: 1fr 1fr; }
-        }
-
         .gift-box-card {
             padding: 40px 30px;
             text-align: center;
-            margin-top: 25px;
+            max-width: 600px;
+            margin: 0 auto;
+            width: 100%;
         }
 
         .btn-view-bank {
@@ -896,106 +879,6 @@
         }
 
         .btn-view-bank:hover { background-color: #b89350; }
-
-        .rsvp-form-card {
-            padding: 35px 30px;
-            margin-top: 25px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-            text-align: left;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-bottom: 8px;
-            letter-spacing: 0.5px;
-        }
-
-        .form-control {
-            width: 100%;
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: #ffffff;
-            padding: 12px 16px;
-            border-radius: 8px;
-            font-family: var(--font-sans);
-            font-size: 0.95rem;
-            transition: border-color 0.3s;
-        }
-
-        .form-control:focus {
-            outline: none;
-            border-color: var(--text-gold);
-        }
-
-        select.form-control option {
-            background: var(--bg-card);
-            color: #ffffff;
-        }
-
-        textarea.form-control {
-            resize: vertical;
-            min-height: 100px;
-        }
-
-        .btn-submit-rsvp {
-            width: 100%;
-            background-color: var(--btn-gold);
-            color: #ffffff;
-            border: none;
-            padding: 14px;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .btn-submit-rsvp:hover { background-color: #b89350; }
-
-        .form-status {
-            margin-top: 15px;
-            font-size: 0.9rem;
-            text-align: center;
-            display: none;
-        }
-
-        .wishes-container {
-            margin-top: 30px;
-            max-height: 350px;
-            overflow-y: auto;
-            padding-right: 5px;
-            text-align: left;
-        }
-
-        .wish-card {
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 12px;
-        }
-
-        .wish-card strong {
-            color: var(--text-gold);
-            font-size: 0.95rem;
-        }
-
-        .wish-card p {
-            font-size: 0.9rem;
-            margin: 6px 0;
-            color: #f3efe6;
-            word-break: break-word;
-        }
-
-        .wish-card small {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-        }
 
         .modal-overlay {
             position: fixed;
@@ -1164,7 +1047,7 @@
                             <div class="time-box"><span id="secs">00</span><label>Secs</label></div>
                         </div>
 
-                        <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=The+Wedding+of+Chery+%26+Wina&dates=20261018T130000/20261018T180000&ctz=Asia/Jakarta&details=Rangkaian+Acara+Pernikahan+Chery+%26+Wina+di+Surabaya&location=Surabaya%2C+Jawa+Timur" target="_blank" rel="noopener noreferrer" class="btn-save-date">
+                        <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=The+Wedding+of+Chery+%26+Wina&dates=20261018T130000/20261018T180000&ctz=Asia/Jakarta&details=Rangkaian+Acara+Pernikahan+Chery+%26+Wina&location=Surabaya%2C+Jawa+Timur" target="_blank" rel="noopener noreferrer" class="btn-save-date">
                             <i class="fa-regular fa-calendar-check"></i> Save the Date
                         </a>
                     </div>
@@ -1407,41 +1290,108 @@
                     </div>
 
                     <div class="events-grid">
+                        <!-- 1. Holy Matrimony -->
                         <div class="event-card">
-                            <i class="fa-solid fa-dharmachakra" style="font-size: 1.8rem; color: var(--text-gold);"></i>
-                            <h3 class="section-title" style="margin-top: 10px; font-size: 1.6rem;">Holy Matrimony</h3>
+                            <div>
+                                <i class="fa-solid fa-dharmachakra" style="font-size: 1.8rem; color: var(--text-gold);"></i>
+                                <h3 class="section-title" style="margin-top: 10px; font-size: 1.5rem;">Holy Matrimony</h3>
 
-                            <div class="date-display">
-                                <div class="date-number">18</div>
-                                <div class="date-detail">
-                                    <strong>Sunday, October 2026</strong><br>
-                                    13:00 - 14:30 WIB
+                                <div class="date-display">
+                                    <div class="date-number">18</div>
+                                    <div class="date-detail">
+                                        <strong>Minggu, 18 Oktober 2026</strong><br>
+                                        13:00 - 14:30 WIB
+                                    </div>
                                 </div>
                             </div>
 
                             <div class="location-box">
                                 <strong>Vihara Buddhayana Surabaya</strong><br>
-                                <span style="font-size: 0.85rem; color: #d0c8be;">Jl. Raya Putat Gede No. 1, Surabaya, Jawa Timur</span><br>
-                                <a href="https://maps.app.goo.gl/SNNfBkLjBTexWJct7" target="_blank" class="btn-location">Google Maps Location</a>
+                                <span style="font-size: 0.85rem; color: #d0c8be;">Jl. Raya Putat Gede No. 1, Surabaya, Jawa Timur</span>
                             </div>
                         </div>
 
+                        <!-- 2. Chinese Teapai (Surabaya) -->
                         <div class="event-card">
-                            <i class="fa-solid fa-champagne-glasses" style="font-size: 1.8rem; color: var(--text-gold);"></i>
-                            <h3 class="section-title" style="margin-top: 10px; font-size: 1.6rem;">Wedding Reception</h3>
+                            <div>
+                                <i class="fa-solid fa-mug-hot" style="font-size: 1.8rem; color: var(--text-gold);"></i>
+                                <h3 class="section-title" style="margin-top: 10px; font-size: 1.5rem;">Chinese Teapai (Surabaya)</h3>
 
-                            <div class="date-display">
-                                <div class="date-number">18</div>
-                                <div class="date-detail">
-                                    <strong>Sunday, October 2026</strong><br>
-                                    15:00 - 18:00 WIB
+                                <div class="date-display">
+                                    <div class="date-number">18</div>
+                                    <div class="date-detail">
+                                        <strong>Minggu, 18 Oktober 2026</strong><br>
+                                        10:00 WIB
+                                    </div>
                                 </div>
                             </div>
 
                             <div class="location-box">
                                 <strong>Fairfield by Marriott Surabaya Mayjen Sungkono</strong><br>
-                                <span style="font-size: 0.85rem; color: #d0c8be;">Jl. Mayjen Sungkono No. 178, Surabaya, Jawa Timur</span><br>
-                                <a href="https://maps.app.goo.gl/EHdbxHkWxrhdCNQi9" target="_blank" class="btn-location">Google Maps Location</a>
+                                <span style="font-size: 0.85rem; color: #d0c8be;">Jl. Mayjen Sungkono No. 178, Surabaya, Jawa Timur</span>
+                            </div>
+                        </div>
+
+                        <!-- 3. Resepsi Surabaya -->
+                        <div class="event-card">
+                            <div>
+                                <i class="fa-solid fa-champagne-glasses" style="font-size: 1.8rem; color: var(--text-gold);"></i>
+                                <h3 class="section-title" style="margin-top: 10px; font-size: 1.5rem;">Resepsi Surabaya</h3>
+
+                                <div class="date-display">
+                                    <div class="date-number">18</div>
+                                    <div class="date-detail">
+                                        <strong>Minggu, 18 Oktober 2026</strong><br>
+                                        15:00 WIB
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="location-box">
+                                <strong>Maystar Restaurant</strong><br>
+                                <span style="font-size: 0.85rem; color: #d0c8be;">Surabaya, Jawa Timur</span>
+                            </div>
+                        </div>
+
+                        <!-- 4. Chinese Teapai (Medan) -->
+                        <div class="event-card">
+                            <div>
+                                <i class="fa-solid fa-mug-hot" style="font-size: 1.8rem; color: var(--text-gold);"></i>
+                                <h3 class="section-title" style="margin-top: 10px; font-size: 1.5rem;">Chinese Teapai (Medan)</h3>
+
+                                <div class="date-display">
+                                    <div class="date-number">18</div>
+                                    <div class="date-detail">
+                                        <strong>Minggu, 18 Oktober 2026</strong><br>
+                                        18:00 WIB
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="location-box">
+                                <strong>Regale Medan</strong><br>
+                                <span style="font-size: 0.85rem; color: #d0c8be;">Medan, Sumatera Utara</span>
+                            </div>
+                        </div>
+
+                        <!-- 5. Resepsi Medan -->
+                        <div class="event-card">
+                            <div>
+                                <i class="fa-solid fa-champagne-glasses" style="font-size: 1.8rem; color: var(--text-gold);"></i>
+                                <h3 class="section-title" style="margin-top: 10px; font-size: 1.5rem;">Resepsi Medan</h3>
+
+                                <div class="date-display">
+                                    <div class="date-number">18</div>
+                                    <div class="date-detail">
+                                        <strong>Minggu, 18 Oktober 2026</strong><br>
+                                        19:00 WIB
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="location-box">
+                                <strong>Regale Medan</strong><br>
+                                <span style="font-size: 0.85rem; color: #d0c8be;">Medan, Sumatera Utara</span>
                             </div>
                         </div>
                     </div>
@@ -1488,78 +1438,19 @@
             </div>
         </section>
 
-        <!-- 7. Wedding Gift & RSVP Form -->
-        <section class="rsvp-section">
+        <!-- 7. Wedding Gift Section -->
+        <section class="gift-section">
             <div class="container">
-                <div class="interactive-grid">
-                    <div class="lazy-element">
-                        <h2 class="section-title">Wedding Gift</h2>
-                        <p style="font-size: 0.9rem; color: var(--text-muted);">
-                            Doa restu Anda adalah hadiah terindah bagi kami. Namun jika Anda ingin memberikan hadiah, Anda dapat menggunakan tombol di bawah ini:
-                        </p>
+                <div class="glass-panel gift-box-card lazy-element">
+                    <h2 class="section-title" style="margin-bottom: 10px;">Wedding Gift</h2>
+                    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 25px; line-height: 1.6;">
+                        Doa restu Anda adalah hadiah terindah bagi kami. Namun jika Anda ingin memberikan hadiah, Anda dapat menggunakan tombol di bawah ini:
+                    </p>
 
-                        <div class="glass-panel gift-box-card">
-                            <i class="fa-solid fa-gift" style="font-size: 2.2rem; color: var(--text-gold);"></i>
-                            <p style="font-size: 0.95rem; margin-top: 10px;">Cashless / Digital</p>
-                            <button class="btn-view-bank" onclick="openModal()">Lihat Rekening</button>
-                        </div>
-                    </div>
-
-                    <div class="lazy-element">
-                        <h2 class="section-title">RSVP & Wishes</h2>
-                        <div class="glass-panel rsvp-form-card">
-                            <form id="rsvpForm">
-                                <div class="form-group">
-                                    <label for="nama">Nama Lengkap</label>
-                                    <input type="text" id="nama" name="nama" class="form-control" placeholder="Nama Anda" required readonly>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="kehadiran">Konfirmasi Kehadiran</label>
-                                    <select id="kehadiran" name="kehadiran" class="form-control" required>
-                                        <option value="" disabled selected>Pilih Kehadiran</option>
-                                        <option value="Hadir">Ya, Saya/Kami Hadir</option>
-                                        <option value="Tidak Hadir">Mohon Maaf, Berhalangan Hadir</option>
-                                    </select>
-                                </div>
-
-                                <div id="conditionalFields">
-                                    <div class="form-group">
-                                        <label for="sesi_acara">Pilih Sesi Acara Kehadiran</label>
-                                        <select id="sesi_acara" name="sesi_acara" class="form-control">
-                                            <option value="" disabled selected>Pilih Sesi Acara</option>
-                                            <option value="Holy Matrimony">Holy Matrimony (13:00 - 14:30 WIB)</option>
-                                            <option value="Wedding Reception">Wedding Reception (15:00 - 18:00 WIB)</option>
-                                            <option value="Keduanya">Keduanya</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="jumlah_tamu">Jumlah Tamu</label>
-                                        <select id="jumlah_tamu" name="jumlah_tamu" class="form-control">
-                                            <option value="1 Orang">1 Orang</option>
-                                            <option value="2 Orang">2 Orang</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="ucapan">Pesan & Doa Ucapan</label>
-                                    <textarea id="ucapan" name="ucapan" class="form-control" placeholder="Tuliskan harapan & ucapan doa Anda..." required></textarea>
-                                </div>
-
-                                <button type="submit" class="btn-submit-rsvp" id="btnSubmit">Kirim Konfirmasi</button>
-                                <div class="form-status" id="formStatus"></div>
-                            </form>
-
-                            <!-- CONTAINER DAFTAR UCAPAN & DOA -->
-                            <div style="margin-top: 35px; border-top: 1px solid rgba(255,255,255,0.15); padding-top: 20px;">
-                                <h3 style="font-family: var(--font-serif); font-size: 1.2rem; margin-bottom: 15px; color: var(--text-gold);">Harapan & Doa Tamu</h3>
-                                <div class="wishes-container" id="wishesContainer">
-                                    <p style="font-size: 0.85rem; color: var(--text-muted); text-align: center;">Memuat ucapan...</p>
-                                </div>
-                            </div>
-                        </div>
+                    <div style="background: rgba(0, 0, 0, 0.25); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 16px; padding: 30px 20px;">
+                        <i class="fa-solid fa-gift" style="font-size: 2.5rem; color: var(--text-gold);"></i>
+                        <p style="font-size: 1rem; margin-top: 12px; font-weight: 500;">Cashless / Digital Gift</p>
+                        <button class="btn-view-bank" onclick="openModal()">Lihat Rekening</button>
                     </div>
                 </div>
             </div>
@@ -1622,55 +1513,6 @@
     <script src="https://www.youtube.com/iframe_api"></script>
 
     <script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbwDtQs6bjtZt4GpP6NDOX-_NqsIfuZP3o1sD0sm5NwWIsgdwFpjgC9Gyu5LONGq9tYyEw/exec'; 
-
-    function loadWishes() {
-        const wishesContainer = document.getElementById('wishesContainer');
-        
-        fetch(`${scriptURL}?action=getWishes`)
-            .then(response => response.json())
-            .then(data => {
-                wishesContainer.innerHTML = '';
-                
-                if (!data || data.length === 0) {
-                    wishesContainer.innerHTML = '<p style="font-size: 0.85rem; color: var(--text-muted); text-align: center;">Belum ada ucapan.</p>';
-                    return;
-                }
-
-                const approvedWishes = data.filter(item => item.status && item.status.toLowerCase() === 'approved');
-
-                if (approvedWishes.length === 0) {
-                    wishesContainer.innerHTML = '<p style="font-size: 0.85rem; color: var(--text-muted); text-align: center;">Belum ada ucapan yang disetujui.</p>';
-                    return;
-                }
-
-                approvedWishes.forEach(item => {
-                    const wishCard = document.createElement('div');
-                    wishCard.className = 'wish-card';
-                    wishCard.innerHTML = `
-                        <strong>${escapeHtml(item.nama)}</strong> 
-                        <span style="font-size: 0.75rem; color: var(--text-muted);">(${escapeHtml(item.kehadiran || '-')})</span>
-                        <p>${escapeHtml(item.ucapan)}</p>
-                        <small>${escapeHtml(item.tanggal || '')}</small>
-                    `;
-                    wishesContainer.appendChild(wishCard);
-                });
-            })
-            .catch(error => {
-                console.error('Gagal memuat ucapan:', error);
-                wishesContainer.innerHTML = '<p style="font-size: 0.85rem; color: #F44336; text-align: center;">Gagal memuat ucapan.</p>';
-            });
-    }
-
-    function escapeHtml(text) {
-        if (!text) return '';
-        return text.replace(/&/g, "&amp;")
-                   .replace(/</g, "&lt;")
-                   .replace(/>/g, "&gt;")
-                   .replace(/"/g, "&quot;")
-                   .replace(/'/g, "&#039;");
-    }
-
     function initFullAssetPreloader() {
         const isAppleDevice = /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent) || 
                               (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
@@ -1815,7 +1657,6 @@
     const musicBtn = document.getElementById('musicBtn');
     const musicIcon = document.getElementById('musicIcon');
     const mainContent = document.getElementById('mainContent');
-    const inputNama = document.getElementById('nama');
     
     let isPlaying = false;
     let wasPlayingBeforeVideo = false;
@@ -1828,8 +1669,6 @@
         if (whitelistTamu.includes(normalizedGuest)) {
             const formattedName = toTitleCase(normalizedGuest);
             document.getElementById('guestNameDisplay').innerText = formattedName;
-            inputNama.value = formattedName;
-            inputNama.readOnly = true;
         } else {
             isUserInvited = false;
             document.getElementById('guestNameDisplay').innerText = "You're Not Invited";
@@ -1842,15 +1681,10 @@
         }
     } else {
         document.getElementById('guestNameDisplay').innerText = "Tamu Undangan";
-        inputNama.value = "";
-        inputNama.readOnly = false;
-        inputNama.required = true;
-        inputNama.placeholder = "Masukkan nama Anda...";
     }
 
     document.addEventListener("DOMContentLoaded", () => {
         initFullAssetPreloader();
-        loadWishes();
     });
 
     function onYouTubeIframeAPIReady() {
@@ -1879,24 +1713,6 @@
             }
         }
     }
-
-    const kehadiranSelect = document.getElementById('kehadiran');
-    const conditionalFields = document.getElementById('conditionalFields');
-    const sesiAcaraSelect = document.getElementById('sesi_acara');
-    const jumlahTamuSelect = document.getElementById('jumlah_tamu');
-
-    kehadiranSelect.addEventListener('change', function() {
-        if (this.value === 'Tidak Hadir') {
-            conditionalFields.style.display = 'none';
-            sesiAcaraSelect.removeAttribute('required');
-            jumlahTamuSelect.removeAttribute('required');
-            sesiAcaraSelect.value = '';
-        } else {
-            conditionalFields.style.display = 'block';
-            sesiAcaraSelect.setAttribute('required', 'true');
-            jumlahTamuSelect.setAttribute('required', 'true');
-        }
-    });
 
     openBtn.addEventListener('click', () => {
         mainContent.classList.add('show-content');
@@ -2016,53 +1832,6 @@
         navigator.clipboard.writeText(accNumber);
         alert('Nomor rekening ' + accNumber + ' berhasil disalin!');
     }
-
-    const form = document.getElementById('rsvpForm');
-    const btnSubmit = document.getElementById('btnSubmit');
-    const formStatus = document.getElementById('formStatus');
-
-    form.addEventListener('submit', e => {
-        e.preventDefault();
-        btnSubmit.disabled = true;
-        btnSubmit.innerText = 'Mengirim...';
-        formStatus.style.display = 'block';
-        formStatus.style.color = '#c6a052';
-        formStatus.innerText = 'Sedang mengirim konfirmasi...';
-
-        const formData = new FormData(form);
-
-        if (document.getElementById('kehadiran').value === 'Tidak Hadir') {
-            formData.set('sesi_acara', '-');
-            formData.set('jumlah_tamu', '-');
-        }
-
-        fetch(scriptURL, { 
-            method: 'POST', 
-            body: formData 
-        })
-        .then(response => response.json())
-        .then(result => {
-            btnSubmit.disabled = false;
-            btnSubmit.innerText = 'Kirim Konfirmasi';
-            formStatus.style.color = '#4CAF50';
-            formStatus.innerText = 'Terima kasih! Konfirmasi kehadiran & ucapan berhasil terkirim. Menunggu persetujuan tampil.';
-        
-            form.reset();
-            document.getElementById('conditionalFields').style.display = 'block';
-            if (guest && whitelistTamu.includes(guest.trim().toLowerCase())) {
-                inputNama.value = toTitleCase(guest.trim());
-            }
-
-            setTimeout(loadWishes, 3000);
-        })
-        .catch(error => {
-            btnSubmit.disabled = false;
-            btnSubmit.innerText = 'Kirim Konfirmasi';
-            formStatus.style.color = '#F44336';
-            formStatus.innerText = 'Gagal mengirim. Silakan coba lagi.';
-            console.error('Error!', error);
-        });
-    });
     </script>
 </body>
 </html>
